@@ -200,7 +200,8 @@ const QuizsPage = () => {
             </Card>
           </Link>
 
-          <Card>
+         <Link href="/quizs/fill-blanks" className="hover:scale-105 transition-transform duration-300">
+         <Card>
             <CardHeader>
               <Image src="/fill.png" alt="hero-image" width={100} height={100} className="object-cover object-center mx-auto mb-4" />
 
@@ -211,10 +212,10 @@ const QuizsPage = () => {
               </p>
             </CardContent>
           </Card>
-
-
+          </Link>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
+          <Link href="/quizs/matching" className="hover:scale-105 transition-transform duration-300">
           <Card>
             <CardHeader>
               <Image src="/choose.png" alt="hero-image" width={100} height={100} className="object-cover object-center mx-auto mb-4" />
@@ -225,6 +226,8 @@ const QuizsPage = () => {
               <p>Student match related items (e.g., words and definitions).</p>
             </CardContent>
           </Card>
+          </Link>
+          <Link href="/quizs/reorder" className="hover:scale-105 transition-transform duration-300">
           <Card>
             <CardHeader>
               <Image src="/ordering.png" alt="hero-image" width={100} height={100} className="object-cover object-center mx-auto mb-4" />
@@ -235,7 +238,8 @@ const QuizsPage = () => {
               <p>Student arrange steps in the correct order.</p>
             </CardContent>
           </Card>
-
+          </Link>
+          <Link href="/quizs/image" className="hover:scale-105 transition-transform duration-300">
           <Card>
             <CardHeader>
               <Image src="/picture.png" alt="hero-image" width={100} height={100} className="object-cover object-center mx-auto mb-4" />
@@ -245,6 +249,7 @@ const QuizsPage = () => {
               <p>Student identify objects, flags, or people from images.</p>
             </CardContent>
           </Card>
+          </Link>
 
         </div>
       </section>
