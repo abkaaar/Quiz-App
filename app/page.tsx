@@ -15,37 +15,27 @@ export default function Home() {
        
         <Navbar/>
 
-        <main className="container mx-auto px-4  grid md:grid-cols-2 gap-12 items-center">
+        <main 
+          className="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center h-screen py-12"
+          style={{ backgroundImage: 'url(/banner.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
+        >
           <div className="space-y-6">
             <h2 className="text-5xl font-extrabold text-white leading-tight">
               Learn. Challenge. Grow.
             </h2>
             <p className="text-xl text-white">
-              Quizapp is is an interactive web-based quiz platform designed for secondary school students. Our goal is to make learning fun, engaging, and rewarding by providing subject-specific quizzes tailored to students in Niger State. 
+              Quizapp is is an interactive web-based quiz platform designed for students accross all levels with the aim to make learning fun, engaging, and rewarding by providing subject-specific quizzes tailored to students. 
             </p>
             <div className="flex space-x-4">
               <Button size="lg" className="px-8">
-                Get Started <ArrowRight className="ml-2 h-5 w-5" />
+          Get Started <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               
               <Link href="/quizs" className="hidden md:block">
               <Button variant="outline" size="lg" className="px-8">
-                Explore Quizzes
+          Explore Quizzes
               </Button>
               </Link>
-            </div>
-          </div>
-
-          <div className="flex justify-center">
-            <div className="relative h-full">
-              <Image
-                src={"/hero.webp"}
-                alt="hero-image"
-                priority
-                width={300}
-                height={300}
-                className="object-cover object-center mx-auto rounded-full"
-              />
             </div>
           </div>
         </main>
