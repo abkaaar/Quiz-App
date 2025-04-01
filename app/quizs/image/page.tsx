@@ -13,7 +13,7 @@ const dummyImageQuizData = {
   questions: [
     {
       id: 1,
-      imageUrl: "/images/eiffel-tower.jpg",  // Image URL
+      imageUrl: "/tower.jpg",  // Image URL
       options: [
         "Eiffel Tower",
         "Statue of Liberty",
@@ -25,7 +25,7 @@ const dummyImageQuizData = {
     },
     {
       id: 2,
-      imageUrl: "/images/great-wall.jpg",  // Image URL
+      imageUrl: "/wall.jpg",  // Image URL
       options: [
         "Eiffel Tower",
         "Statue of Liberty",
@@ -102,7 +102,7 @@ const ImageQuiz = () => {
                   <Button 
                     key={index} 
                     onClick={() => setSelectedOption(option)} 
-                    className={`w-full ${selectedOption === option ? 'bg-blue-500' : 'bg-white'}`}
+                    className={`w-full ${selectedOption === option ? 'bg-blue-500' : 'bg-blue-400'} ${showExplanation ? (option === currentQ.correctAnswer ? 'bg-green-500' : 'bg-red-500') : ''}`}
                   >
                     {option}
                   </Button>
