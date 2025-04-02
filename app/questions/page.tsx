@@ -1,73 +1,141 @@
-import Questions from "@/components/questions";
-import { categoryOptions, difficultyOptions } from "@/constants";
-import { redirect } from "next/navigation";
-import "./questions.css";
+import React, { useState } from 'react';
+import { 
+  ChevronDown, 
+  GripVertical, 
+  Edit, 
+  Trash, 
+  Check, 
+  X, 
+  Copy, 
+  Clock, 
+  Award, 
+  Sparkles
+} from 'lucide-react';
 
-export const fetchCache = "force-no-store";
-
-type Props = {
-  searchParams: {
-    category: string;
-    difficulty: string;
-    limit: string;
-  };
-};
-
-async function getData(category: string, difficulty: string, limit: string) {
-  const res = await fetch(
-    `https://the-trivia-api.com/api/questions?categories=${category}&limit=${limit}&type=multiple&difficulty=${difficulty}`,
+const QuestionComponent = () => {
+  // Sample questions data
+  const [questions, setQuestions] = useState([
     {
-      method: "GET",
-      headers: {
-        "Cache-Control": "no-cache",
-      },
+      id: 1,
+      type: 'fill-in-blank',
+      questionText: 'What is the first step in creating a budget?',
+      timeLimit: '1 minutes',
+      points: '1 point',
+      answer: 'Assess your income and expenses.',
+      isCorrect: true
+    },
+    {
+      id: 2,
+      type: 'multiple-choice',
+      questionText: 'If you save $100 a month for a year, how much will you have saved?',
+      timeLimit: '30 seconds',
+      points: '1 point',
+      choices: [
+        { text: '$1200', isCorrect: true },
+        { text: '$800', isCorrect: false },
+        { text: '$600', isCorrect: false },
+        { text: '$1500', isCorrect: false }
+      ]
     }
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch data!");
-  }
-
-  return res.json();
-}
-
-const QuestionsPage = async ({ searchParams }: Props) => {
-  const category = searchParams.category as string;
-  const difficulty = searchParams.difficulty;
-  const limit = searchParams.limit;
-
-  const validateCategory = (category: string) => {
-    const validCategories = categoryOptions.map((option) => option.value);
-    return validCategories.includes(category);
-  };
-
-  const validateDifficulty = (difficulty: string) => {
-    const validDifficulties = difficultyOptions.map((option) => option.value);
-    return validDifficulties.includes(difficulty);
-  };
-
-  const validateLimit = (limit: string) => {
-    const parsedLimit = parseInt(limit, 10);
-    return !isNaN(parsedLimit) && parsedLimit >= 5 && parsedLimit <= 50;
-  };
-
-  if (
-    !validateCategory(category) ||
-    !validateDifficulty(difficulty) ||
-    !validateLimit(limit)
-  ) {
-    return redirect("/");
-  }
-
-  const response = await getData(category, difficulty, limit);
+  ]);
 
   return (
-    <Questions
-      questions={response}
-      limit={parseInt(limit, 10)}
-      category={category}
-    />
+    <div className="flex flex-col gap-4">
+      {questions.map((question) => (
+        <div key={question.id} className="border rounded-lg shadow-sm bg-white">
+          {/* Question header */}
+          <div className="flex items-center p-4 border-b">
+            <button className="p-2 hover:bg-gray-100 rounded">
+              <GripVertical className="h-4 w-4 text-gray-500" />
+            </button>
+            
+            <div className="flex items-center ml-2">
+              {question.type === 'fill-in-blank' ? (
+                <span className="flex px-3 py-1 border rounded-md text-sm">
+                  <span className="mr-1">1.</span> Fill in the Blank
+                </span>
+              ) : (
+                <span className="flex px-3 py-1 border rounded-md text-sm">
+                  <Check className="h-4 w-4 mr-1" /> 
+                  <span className="mr-1">2.</span> Multiple Choice
+                </span>
+              )}
+            </div>
+            
+            {/* Time dropdown */}
+            <div className="ml-4 relative">
+              <button className="flex items-center px-3 py-1 border rounded-md text-sm">
+                <Clock className="h-4 w-4 mr-1 text-gray-500" />
+                {question.timeLimit}
+                <ChevronDown className="h-4 w-4 ml-1" />
+              </button>
+            </div>
+            
+            {/* Points dropdown */}
+            <div className="ml-2 relative">
+              <button className="flex items-center px-3 py-1 border rounded-md text-sm">
+                <Award className="h-4 w-4 mr-1 text-gray-500" />
+                {question.points}
+                <ChevronDown className="h-4 w-4 ml-1" />
+              </button>
+            </div>
+            
+            {/* Spacer */}
+            <div className="flex-grow"></div>
+            
+            {/* AI button */}
+            <button className="flex items-center px-3 py-1 border rounded-md text-sm ml-2">
+              <Sparkles className="h-4 w-4 mr-1" />
+              AI
+              <ChevronDown className="h-4 w-4 ml-1" />
+            </button>
+            
+            {/* Action buttons */}
+            <button className="p-2 ml-2 hover:bg-gray-100 rounded">
+              <Copy className="h-4 w-4 text-gray-600" />
+            </button>
+            <button className="p-2 ml-1 hover:bg-gray-100 rounded">
+              <Edit className="h-4 w-4 text-gray-600" /> 
+            </button>
+            <button className="p-2 ml-1 hover:bg-gray-100 rounded">
+              <Trash className="h-4 w-4 text-gray-600" />
+            </button>
+          </div>
+          
+          {/* Question content */}
+          <div className="p-6">
+            <h3 className="text-lg font-medium mb-4">{question.questionText}</h3>
+            
+            {question.type === 'fill-in-blank' ? (
+              <div>
+                <p className="text-gray-600 mb-2">Answer</p>
+                <div className="flex items-center">
+                  <Check className="h-5 w-5 text-green-500 mr-2" />
+                  <p>{question.answer}</p>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <p className="text-gray-600 mb-2">Answer choices</p>
+                <div className="grid grid-cols-2 gap-4">
+                  {question.choices?.map((choice, index) => (
+                    <div key={index} className="flex items-center">
+                      {choice.isCorrect ? (
+                        <Check className="h-5 w-5 text-green-500 mr-2" />
+                      ) : (
+                        <X className="h-5 w-5 text-red-500 mr-2" />
+                      )}
+                      <p>{choice.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
-export default QuestionsPage;
+export default QuestionComponent;
