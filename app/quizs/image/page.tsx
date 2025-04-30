@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Check, RefreshCw, X } from 'lucide-react';
+import Image from 'next/image';
 
 // Dummy image quiz data
 const dummyImageQuizData = {
@@ -90,7 +91,7 @@ const ImageQuiz = () => {
             <CardContent className="space-y-6">
               <div className="text-xl font-medium text-center py-4">Identify this Landmark</div>
               <div className="flex justify-center">
-                <img 
+                <Image 
                   src={currentQ.imageUrl} 
                   alt="Landmark" 
                   className="w-full max-w-md rounded-lg" 

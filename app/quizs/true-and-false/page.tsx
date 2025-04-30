@@ -175,7 +175,7 @@ const TruthOrFalseQuiz = () => {
           <>
             <CardHeader>
               <CardTitle>Quiz Completed!</CardTitle>
-              <CardDescription>Here's how you did</CardDescription>
+              <CardDescription>Here is how you did</CardDescription>
             </CardHeader>
             
             <CardContent className="text-center py-6">
