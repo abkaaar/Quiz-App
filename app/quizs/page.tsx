@@ -171,8 +171,8 @@ const QuizsPage = () => {
   
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
-      <Navbar />
+    <div className="min-h-screen">
+
       <section className="container mx-auto px-4 mt-24 flex flex-col gap-8">
         <div className="flex flex-col items-center">
           <Dialog open={open} onOpenChange={setOpen}>

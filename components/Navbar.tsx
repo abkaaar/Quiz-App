@@ -58,11 +58,11 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="container mx-auto px-4 py-3 flex justify-between items-center from-blue-50 to-white bg-white shadow-sm rounded-lg">
+      <header className=" mx-auto px-4 py-3 flex justify-between items-center from-blue-50 to-white bg-white shadow-sm rounded-lg">
         <div className="flex items-center space-x-2">
           <Link href="/" className="flex items-center space-x-2">
             <Brain className="w-8 h-8 text-blue-600" />
-            <h1 className="text-2xl font-bold text-gray-800">Quizapp</h1>
+            <h1 className="text-2xl font-bold text-gray-800">Quizines</h1>
           </Link>
         </div>
 
