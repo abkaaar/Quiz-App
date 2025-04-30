@@ -7,7 +7,6 @@ import useModalStore from "@/hooks/useModalStore";
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import { toast } from "sonner";
 
 type Props = {
   questions: {
@@ -52,7 +51,6 @@ const TrueFalseQuiz = ({ questions, limit, category }: Props) => {
 
   const handleTimeUp = () => {
     handleCheck(questions[curr].correctAnswer, true);
-    toast.info("You ran out of Time!");
   };
 
   useEffect(() => {

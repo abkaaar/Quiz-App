@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import { useToast } from "@/hooks/use-toast";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { addDoc, collection, getDoc, getDocs } from "firebase/firestore";
 
@@ -39,7 +38,6 @@ import {
 import Image from "next/image";
 
 const QuizsPage = () => {
-  const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [quizName, setQuizName] = useState("");
   const [subject, setSubject] = useState("");
@@ -79,11 +77,7 @@ const QuizsPage = () => {
 
   const handleSave = async () => {
     if (!quizName || !subject || !grade) {
-      toast({
-        title: "Incomplete form",
-        description: "Please fill all required fields",
-        variant: "destructive",
-      });
+      alert("Please fill all required fields");
       return;
     }
 
@@ -114,10 +108,6 @@ const QuizsPage = () => {
 
       setQuizzes([...quizzes, { id: docRef.id, ...quizData }]);
 
-      toast({
-        title: "Success",
-        description: "Quiz created successfully",
-      });
 
       setOpen(false);
       setQuizName("");
@@ -126,11 +116,7 @@ const QuizsPage = () => {
       setImage(null);
     } catch (error) {
       console.error("Error adding document: ", error);
-      toast({
-        title: "Error",
-        description: "Failed to create quiz",
-        variant: "destructive",
-      });
+     
     } finally {
       setLoading(false);
     }
@@ -153,11 +139,7 @@ const QuizsPage = () => {
           setQuizzes(quizzesList);
         } catch (error) {
           console.error("Error fetching quizzes:", error);
-          toast({
-            title: "Error",
-            description: "Failed to fetch quizzes",
-            variant: "destructive",
-          });
+         
         } finally {
           setLoading(false);
         }
@@ -168,7 +150,7 @@ const QuizsPage = () => {
     });
   
     return () => unsubscribe(); // Cleanup the listener when component unmounts
-  }, [toast]);
+  }, []);
   
 
   return (

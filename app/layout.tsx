@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import ModalProvider from "@/components/modals/modal-provider";
-import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -24,7 +23,6 @@ export default function RootLayout({
         <AuthProvider>
         <main>{children}</main>
         </AuthProvider>
-        <Toaster position="top-center" duration={5000} richColors />
       </body>
     </html>
   );

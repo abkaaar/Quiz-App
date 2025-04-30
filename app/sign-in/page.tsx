@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import { useToast } from '@/hooks/use-toast';
 import { Brain } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -13,7 +12,6 @@ import { auth } from '@/utils/firebase';
 const provider = new GoogleAuthProvider();
 
 export default function SignInPage() {
-  const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [initializing, setInitializing] = useState(true);
@@ -36,18 +34,11 @@ export default function SignInPage() {
       const result = await signInWithPopup(auth, provider);
       // The signed-in user info
       const user = result.user;
-      toast({
-        title: "Success",
-        description: `Welcome, ${user.displayName}!`,
-      });
+     
       router.push('/quizs');
     } catch (error) {
       console.error("Error signing in with Google:", error);
-      toast({
-        title: "Error",
-        description: "Failed to sign in with Google",
-        variant: "destructive",
-      });
+     
     } finally {
       setLoading(false);
     }
