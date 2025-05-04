@@ -13,12 +13,12 @@ export default function QuizsLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <Navbar />
+    <>
+    
+    <Navbar />
         <main>{children}</main>
         <Footer/>
-      </body>
-    </html>
+    </>
+     
   );
 }

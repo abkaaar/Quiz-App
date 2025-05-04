@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { 
-  getAuth, 
   onAuthStateChanged, 
   signInWithPopup, 
   GoogleAuthProvider, 
@@ -10,18 +9,9 @@ import {
   User
 } from 'firebase/auth';
 import { useRouter, usePathname } from 'next/navigation';
-import { getFirestore, doc, setDoc, getDoc, serverTimestamp, Firestore } from 'firebase/firestore';
+import { doc, setDoc, getDoc, serverTimestamp, Firestore } from 'firebase/firestore';
 import { auth, db } from '@/utils/firebase';
 
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
-};
 
 
 // Protected routes that require authentication
@@ -50,7 +40,8 @@ interface AuthProviderProps {
   children: React.ReactNode;
 }
 
-export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
+export const AuthProvider = ({ children }: AuthProviderProps): React.ReactNode => {
+  const [mounted, setMounted] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
@@ -98,6 +89,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
       }
     });
 
+    setMounted(true);
     return () => unsubscribe();
   }, [pathname, router]);
 
@@ -121,6 +113,10 @@ export const AuthProvider = ({ children }: AuthProviderProps): JSX.Element => {
     }
   };
 
+  if (!mounted) {
+    return null; // prevent mismatch until mounted on client
+  }
+  
   return (
     <AuthContext.Provider value={{ user, loading, signInWithGoogle, signOut }}>
       {children}
