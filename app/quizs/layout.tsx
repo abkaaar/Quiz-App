@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Quizapp - Test Your Knowledge!",
+  title: "Quizines - Test Your Knowledge!",
   description: "",
 };
 
