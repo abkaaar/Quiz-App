@@ -327,7 +327,6 @@ const QuizsPage = () => {
         </div>
         <SampleQuiz />
       </section>
-      <Footer />
     </div>
   );
 };
